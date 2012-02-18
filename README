@@ -1,0 +1,51 @@
+2012 - Comics Livres Plugin
+Initial idea developed by Edson Garrido (edsongarrido(at)gmail.com)
+
+/* This script is offered as is. Use and modify at your own risk */
+
+Installation:
+1. Upload folders images, comics, css and js to a server with public access
+2. This script assumes that folders css, js, images and comics are all at the same level in the host site.
+I.e.:
+www.host.com/opencomics/js
+www.host.com/opencomics/css
+www.host.com/opencomics/comics
+www.host.com/opencomics/images
+
+Configuration:
+1. In the document js/writeOpenComics.js, set the first line to the path where the 3 folders are in the site. Ie:
+var source = 'http://www.host.com/opencomics' (dont type the last "/")
+
+2. All the comics available by the plugin must be in the folder "comics" that we created.
+
+3. Each comics must have an unique id that will be the name of the folder which will contain the comics jpg files.
+
+4. (For now, this plugin just accept jpg files)
+
+5. Dont use special characters neither spaces to name the comics id
+(I.E.: ghost-corridors, ghost_corridors or ghostcorridors are valid names)
+
+6. In the comics folder, will stay the available resolutions and their files 
+(I.E.: ghost-corridors/1280/ or ghost-corridors/1024/ or ghost-corridors/800/ etc)
+
+7. Inside the resolution folders, save each jpg file named always in pair and with numbers separated by a "-".
+(I.E.: 1-2.jpg, 3-4.jpg, 5-6.jpg ans so on)
+
+8. The script that will be released to inclusion in the page where the comics will show up must have 
+the following structure:
+
+<script 
+	type="text/javascript" 
+	src="http://www.host.com/opencomics/js/writeOpenComics.js?c=ghost-corridors;p=22" 
+	id="open-comics-source">
+</script>
+Where: 
+- www.host.com/opencomics is the site and path where are the plugin and the comics
+- /js/ is the folder where are the plugin javascripts
+- writeOpenComics.js is the file that set variable 'source' with the host address
+- c=ghost-corridors is the folder id where is the comics called by the plugin
+- p=22 is the comics total number of pages 
+
+Implementation:
+1. Deliver the generated code to the ones interested to display the comics. The user must paste this code
+at the place where would like the open comics button to appear.
