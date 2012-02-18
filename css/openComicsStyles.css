@@ -1,0 +1,137 @@
+div#open-comics-page-container {
+	width: 100%;
+	min-height: 620px;	
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+#open-comics-reader {
+	cursor: pointer;	
+}
+
+div#open-comics-close a {
+	text-decoration: none;	
+}
+
+div#open-comics-close a:hover {
+	color: #F9F340;
+}
+
+div.reading-page {
+	color: #F9F340;
+}
+
+img#open-comics-loader {
+	padding-top: 200px;
+	display: block !important;
+	margin: 0 auto;
+}
+
+div#open-comics-page-container img {
+	display: none;
+}
+
+div#hidden-loader {
+	display: none;	
+}
+	
+div#open-comics-close {
+	font-size: 26px;
+	font-weight: bold;
+	position: absolute;
+	right: 0px;
+	top: 10px;
+	z-index: 1003;
+}
+
+div#open-comics-wrapper {
+	position: relative;
+	float: left;
+	width: 99%;
+}
+
+/* pages navigation */
+div#open-comics-scroller {
+	padding: 10px !important;
+	position: fixed;
+	z-index: 10;
+	bottom: 0px;
+	left: 50%;
+	width: 970px;
+	margin: 0 0 0 -500px;
+	text-align: center;
+}
+
+.scroll-pane {
+	overflow: hidden; /*auto;*/
+	width: 85%;
+	margin: 0 auto;
+	height: 50px;
+	position: relative;
+	display: inline-block;
+}
+
+.scroll-nav {
+	width: 50px;
+	height: 10px;
+	position: relative;
+	float: left;
+	border: 0px solid #fff;
+	display: inline-block;
+}
+
+.right {
+	float: right;
+}
+
+.scroll-content {
+	width: 2044px;
+	position: absolute;
+	left: 0px;
+}
+
+.scroll-content-item {
+	width: 70px;
+	height: 40px;
+	float: left;
+	position: relative;
+	margin: 5px;
+	font-size: 14px;
+	line-height: 40px;
+	text-align: center;
+}
+
+* html .scroll-content-item {
+	display: inline;
+} /* IE6 float double margin bug */
+
+.scroll-bar-wrap {
+	clear: left;
+	padding: 0 4px 0 2px;
+	margin: 0 -1px -1px -1px;
+}
+
+.scroll-bar-wrap .ui-slider {
+	background: none;
+	border: 0;
+	height: 2em;
+	margin: 0 auto;
+}
+
+.scroll-bar-wrap .ui-handle-helper-parent {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.scroll-bar-wrap .ui-slider-handle {
+	top: .2em;
+	height: 1.5em;
+}
+
+.scroll-bar-wrap .ui-slider-handle .ui-icon {
+	margin: -8px auto 0;
+	position: relative;
+	top: 50%;
+}
