@@ -114,29 +114,26 @@ jQuery.noConflict();
    $("div.scroll-content-item a").live({
    		click: function() {
 			var text = $(this).text();
-			$("div.scroll-content-item").each(function(){
-				if($(this).text() == text) {
-					$(this).html(text);
-					$(this).addClass('reading-page');
-				} else {
-					mytext = $(this).text();
-					$(this).removeClass('reading-page');
-					$(this).html('<a href="javascript:void(0);">'+mytext+'</a>');
-				}
-			});
-			
-			$("#open-comics-page-container").html('<img src="'+source+'/images/ajax-loader.gif" id="open-comics-loader" />');	
-
-			var pages = text.replace(/\//, '-');
-			var file = source+'/comics/'+folder[1]+'/'+res[1]+'/'+pages+'.jpg';
-			$("#hidden-loader").html('<img src="'+file+'" />');
-			$("#hidden-loader img").load(function(){
-				var img = $("#hidden-loader").html();
-				$("#open-comics-page-container").html(img);
-				$("#open-comics-page-container img").fadeIn('slow');
-			});
+			loadNextPage(text, folder, res);
 		}
    });
+   
+   /* 37-left / 39-right arrow keys */
+   $(document).keydown(function(e){
+	   if (e.keyCode == 39) { 
+		   var text = $("div.reading-page").next("div").text();
+		   if(text.length){
+			   loadNextPage(text, folder, res);
+		   }
+	   }
+	   if (e.keyCode == 37) { 
+		   var text = $("div.reading-page").prev("div").text();
+		   if(text.length){
+			   loadNextPage(text, folder, res);   
+		   }
+	   }
+	});
+
    
    $("div#open-comics-close a").live({
    		click: function() {
@@ -146,6 +143,32 @@ jQuery.noConflict();
    
  });
  
+ 
+ function loadNextPage(text, folder, res) {
+	 
+	 jQuery("div.scroll-content-item").each(function(){
+		if(jQuery(this).text() == text) {
+			jQuery(this).html(text);
+			jQuery(this).addClass('reading-page');
+		} else {
+			mytext = jQuery(this).text();
+			jQuery(this).removeClass('reading-page');
+			jQuery(this).html('<a href="javascript:void(0);">'+mytext+'</a>');
+		}
+	});
+	
+	jQuery("#open-comics-page-container").html('<img src="'+source+'/images/ajax-loader.gif" id="open-comics-loader" />');	
+
+	var pages = text.replace(/\//, '-');
+	var file = source+'/comics/'+folder[1]+'/'+res[1]+'/'+pages+'.jpg';
+	jQuery("#hidden-loader").html('<img src="'+file+'" />');
+	jQuery("#hidden-loader img").load(function(){
+		var img = jQuery("#hidden-loader").html();
+		jQuery("#open-comics-page-container").html(img);
+		jQuery("#open-comics-page-container img").fadeIn('slow');
+	});
+	 
+ }
  
  function getMyOpenComics(folder, res, pages) {
 	
@@ -165,8 +188,13 @@ jQuery.noConflict();
 	for (i = 1; i <= loops; i++) {
 		if(i%2) {
 			next = i+1;
-			pageImg = '<img src="http://www.quadrinize.com/comics-livres/images/'+ i + '-' + 1 + '.png" />';
-			div += '<div class="scroll-content-item ui-widget-header"><a href="javascript:void(0);">'+pageImg+'</a></div>';
+			pageStr = i + '/' + next;
+			/* Use the following variable (pageImg) if you chose to use an image to page numbers
+			 * Script assumes the images are named 1-2.png 3-4.png 5-6.png etc
+			 * Save these images inside 'images' folder of your open comics repository
+			 * Replace variable pageStr with pageImg at div line bellow  */
+			pageImg = '<img src="'+source+'/comics-livres/images/'+ i + '-' + next + '.png" />';
+			div += '<div class="scroll-content-item ui-widget-header"><a href="javascript:void(0);">'+ pageStr + '</a></div>';
 		}
 	}
 	
