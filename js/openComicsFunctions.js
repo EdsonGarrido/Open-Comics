@@ -63,16 +63,17 @@ jQuery.noConflict();
    $('#open-comics-source').after('<button id="open-comics-reader">COMICS LIVRES</button>');
    $('#open-comics-source').after('<div id="open-comics-loader"></div>');
 
-   var folder = $("#open-comics-source").attr('src').match("c=(.*);r"); //folder[1]
-   var res    = $("#open-comics-source").attr('src').match("r=(.*);p"); //res[1]
+   var folder = $("#open-comics-source").attr('src').match("c=(.*);p"); //folder[1]
+   //var res    = $("#open-comics-source").attr('src').match("r=(.*);p"); //res[1]
    var pages  = $("#open-comics-source").attr('src').match("p=(.*)");   //pages[1]
+   var myres  = setMyRes();
    
    var totalPages = pages[1];
    
    $('#open-comics-reader').live({
    		click: function(){
    		
-   			$("#open-comics-loader").html(getMyOpenComics(folder, res, pages)).dialog({
+   			$("#open-comics-loader").html(getMyOpenComics(pages)).dialog({
 				width: '99%',
 				/*height: 620,*/
 				modal: true,
@@ -84,7 +85,7 @@ jQuery.noConflict();
 			});
    			$(".ui-dialog-titlebar").hide();
 			$('.ui-dialog a').blur();
-			loadFirstPage(folder[1], res[1]);
+			loadFirstPage(folder[1], myres);
    		}
    
    });
@@ -98,7 +99,7 @@ jQuery.noConflict();
 			    	left: '-=100'
 			  	}, 2000, function() {
 			    
-			  		});
+			  	});
 			 } 
 		}	
 	});
@@ -119,7 +120,7 @@ jQuery.noConflict();
    $("div.scroll-content-item a").live({
    		click: function() {
 			var text = $(this).text();
-			loadNextPage(text, folder, res);
+			loadNextPage(text, folder, myres);
 		}
    });
    
@@ -128,13 +129,13 @@ jQuery.noConflict();
 	   if (e.keyCode == 39) { 
 		   var text = $("div.reading-page").next("div").text();
 		   if(text.length){
-			   loadNextPage(text, folder, res);
+			   loadNextPage(text, folder, myres);
 		   }
 	   }
 	   if (e.keyCode == 37) { 
 		   var text = $("div.reading-page").prev("div").text();
 		   if(text.length){
-			   loadNextPage(text, folder, res);   
+			   loadNextPage(text, folder, myres);   
 		   }
 	   }
 	});
@@ -149,7 +150,7 @@ jQuery.noConflict();
  });
  
  
- function loadNextPage(text, folder, res) {
+ function loadNextPage(text, folder, myres) {
 	 
 	 jQuery("div.scroll-content-item").each(function(){
 		if(jQuery(this).text() == text) {
@@ -165,7 +166,7 @@ jQuery.noConflict();
 	jQuery("#open-comics-page-container").html('<img src="'+source+'/images/ajax-loader.gif" id="open-comics-loader" />');	
 
 	var pages = text.replace(/\//, '-');
-	var file = source+'/comics/'+folder[1]+'/'+res[1]+'/'+pages+'.jpg';
+	var file = source+'/comics/'+folder[1]+'/'+myres+'/'+pages+'.jpg';
 	jQuery("#hidden-loader").html('<img src="'+file+'" />');
 	jQuery("#hidden-loader img").load(function(){
 		var img = jQuery("#hidden-loader").html();
@@ -175,7 +176,7 @@ jQuery.noConflict();
 	 
  }
  
- function getMyOpenComics(folder, res, pages) {
+ function getMyOpenComics(pages) {
 	
 	var loops = Math.ceil(parseInt(pages[1]));
 	
@@ -215,13 +216,13 @@ jQuery.noConflict();
 	
  }
  
- function loadFirstPage(folder, res) {
+ function loadFirstPage(folder, myres) {
  	
 	jQuery(document).ready(function($){
 	
 		$("#open-comics-page-container").html('<img src="'+source+'/images/ajax-loader.gif" id="open-comics-loader" />');	
 	
-		var file = source+'/comics/'+folder+'/'+res+'/1-2.jpg';
+		var file = source+'/comics/'+folder+'/'+myres+'/1-2.jpg';
 		$("#hidden-loader").html('<img src="'+file+'" />');
 	
 		$("#hidden-loader img").load(function(){
@@ -237,4 +238,16 @@ jQuery.noConflict();
 	});
 	
 	
+ }
+ 
+ function setMyRes() {
+	 
+	 if(screen.width < 1024) {
+		 return '800';
+	 } else if (screen.width > 1023 && screen.width < 1280) {
+		 return '1024';
+	 } else {
+		 return '1280';
+	 }
+	 
  }
