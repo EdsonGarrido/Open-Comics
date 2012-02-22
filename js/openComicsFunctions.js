@@ -55,6 +55,11 @@ jQuery.noConflict();
      
  jQuery(document).ready(function($){
    
+   /**
+    * Change the object bellow to whatever you want to be the caller of the app
+    * It could be an image, a button, a text link etc.
+    * All you have to do is set its id attribute to id="open-comics-reader"
+    */
    $('#open-comics-source').after('<button id="open-comics-reader">COMICS LIVRES</button>');
    $('#open-comics-source').after('<div id="open-comics-loader"></div>');
 
@@ -64,7 +69,7 @@ jQuery.noConflict();
    
    var totalPages = pages[1];
    
-   $('button#open-comics-reader').live({
+   $('#open-comics-reader').live({
    		click: function(){
    		
    			$("#open-comics-loader").html(getMyOpenComics(folder, res, pages)).dialog({
